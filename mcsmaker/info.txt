@@ -1,0 +1,58 @@
+the offset is ... START_ADDRESS   0x00000000 END_ADDRESS 0x000717B3 DIRECTION_UP   "../../synth/Next_ab/issue2/next_ab_issue2_top.bit" 6slx16ftg256
+START_ADDRESS   0x00080000 END_ADDRESS 0x000F1883 DIRECTION_UP   "../../synth/Next/issue2/next_issue2_top.bit" 6slx16ftg256\
+
+
+
+promgen -w -p mcs -c FF -o zxnext -s 16384 -u 00000 ../../synth/Next_ab/issue2/next_ab_issue2_top.bit -u 80000 ../../synth/Next/issue2/next_issue2_top.bit -spi 
+
+
+
+
+
+FLASHING NEXT ANTIBRICK CORE
+============================
+
+Prepare SD card with Gold(?) image, including TBBLUE.TBU and TBBLUE.FW.
+Power off Next and unplug everything (HDMI cable backpowers board).
+Remove Pi, ESP, RTC battery and SD card? (Probably? I didn't and it still worked.)
+Connect ribbon cable to Next JTAG and platform cable box.
+Connect USB cable PCpc and platform cable box.
+Let Windows drivers install if first time plugging in USB.
+Start Xilinx Platform Studio (Windows Virtualbox).
+Let Red Hat Server boot inside Virtualbox.
+Copy "synth_Next_ab_issue2_zxnext.mcs" to the VirtualBox (either by drag/drop, mounting a share, or mounting an .iso).
+In Virtual box, check platfom cable is recognised. 
+Should show as Devices >> USB >> Diligent USB Device [0900] or similar.
+Check device if not already checked.
+Power on Next/ if already flashed, let it boot. Doesn't matter. If not flashed let it sit there. This is essential, as iMPACT will not see the device if powered off.
+Start iMPACT app (icon on desktop).
+General warning: if you mess up in iMPACT and have to start again, restart iMPACT first. Some of the dialogs are only displayed once, so may not be telling it what you thik you are, otherwise.
+At New iMPACT project dialog, select "create a new project (.ipf) radio option.
+Click OK.
+At Welcome to iMPACT dialog, choose "Configure devices using Boundary-Scan (JTAG) radio option.
+Choose "Automatically connect to a cable and identify Boundary-Scan chain dropdown option.
+Click OK.
+Should see an xc6slx16 device graphically represented, no errors.
+At Auto Assign Configuration Files Query Dialog: Do uou want to continue and assign configuration files(s)?, click No.
+At Device Programming Properties dialog, click OK.
+Right click on the graphical representation of "SPI/BPI?" and choose "Add SPI/BPI Flash..."
+At Add PROM File dialog, browse to "synth_Next_ab_issue2_zxnext.mcs" and click OK.
+At Select Attached SPI/BPI dialog, choose:
+  - SPI PROM from dropdown;
+  - W25Q129BV from dropdown;
+  - 1 from Data Width dropdown;
+  - Click OK.
+FLASH should now be graphically represented, with no errors.
+Right click on FLASH, and choose Program.
+At Device Programming Properties dialog, choose:
+  - Verify = checked;
+  - Design-Specific-Erase Before Programming = checked;
+  - After programming Flash = automatic;
+  - Click OK.
+At Configuration Operation Status dialog, wait for progress bar to reach 100%. 
+Progress bar represents entire FLASH capacity and we are only programming a small part of it, so it will jump from approx 16% to 100%.
+Guide time: 424 seconds. Make tea. Drink tea.
+Power off board and unplug everything, including JTAG cable.
+Wait 30 secs.
+Plug in PS/2 keyboard, VGA/HDMI and SD card (optional).
+[Follow Phoebus' AB updating instructions from here]

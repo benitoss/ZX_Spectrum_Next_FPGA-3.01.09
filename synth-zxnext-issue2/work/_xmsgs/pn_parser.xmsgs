@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- IMPORTANT: This is an internal file that has been generated   -->
+<!--     by the Xilinx ISE software.  Any direct editing or        -->
+<!--     changes made to this file may result in unpredictable     -->
+<!--     behavior or data corruption.  It is strongly advised that -->
+<!--     users do not edit the contents of this file.              -->
+<!--                                                               -->
+<!-- Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.    -->
+
+<messages>
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/audio/audio_mixer.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/audio/dac.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/audio/i2s.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/audio/i2s/i2s_master.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/audio/i2s/i2s_receive.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/audio/i2s/i2s_slave.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/audio/i2s/i2s_transmit.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/audio/pwm.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/audio/soundrive.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/audio/turbosound.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/audio/ym2149.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/cpu/t80n.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/cpu/t80n_alu.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/cpu/t80n_mcode.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/cpu/t80n_pack.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/cpu/t80na.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/device/copper.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/device/ctc.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/device/ctc_chan.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/device/divmmc.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/device/dma.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/device/multiface.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/input/keyboard/keymaps.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/input/keyboard/ps2_iobase.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/input/keyboard/ps2_keyb.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/input/md6_joystick_connector_x2.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/input/membrane/emu_fnkeys.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/input/membrane/membrane.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1845" ><arg fmt="%s" index="1">Analyzing Verilog file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/input/ps2_mouse.v&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/misc/asymmetrical_debounce.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/misc/debounce.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/misc/flashboot.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/misc/synchronize.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1845" ><arg fmt="%s" index="1">Analyzing Verilog file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/pll/pll_drp.v&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1065" >&quot;<arg fmt="%s" index="1">D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/pll/pll_drp.v</arg>&quot; Line <arg fmt="%d" index="2">579</arg>. <arg fmt="%s" index="3">Include file found: &apos;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/pll/pll_drp_func.h&apos; in file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/pll/pll_drp.v&quot; line 579
+</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1845" ><arg fmt="%s" index="1">Analyzing Verilog file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/pll/pll_top.v&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/ram/dpram2.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/ram/tdpram.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/rom/bootrom.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/serial/fifop.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/serial/spi_master.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/serial/uart.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/video/hdmi/encoder.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/video/hdmi/hdmi.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/video/hdmi/hdmi_frame.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1845" ><arg fmt="%s" index="1">Analyzing Verilog file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/video/hdmi/hdmidataencoder.v&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/video/hdmi/hdmidelay.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/video/hdmi/xilinx/hdmi_out_xilinx.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/video/layer2.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/video/lores.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/video/sprites.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/video/tilemap.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/video/vga/scan_convert.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/video/zxula.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/video/zxula_timing.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/zxnext.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;D:/Users/benit/Downloads/UnAmiga/UnAmiga Reloaded E55/cores/ZX_Spectrum_Next_FPGA-master-3.01.09/src/zxnext_top_issue2.vhd&quot; into library work</arg>
+</msg>
+
+</messages>
+

@@ -1,0 +1,25 @@
+PLL_Name	clocks:clocks_inst|altpll:altpll_component|clocks_altpll:auto_generated|generic_pll1~FRACTIONAL_PLL
+PLLJITTER	51
+PLLSPEmax	50
+PLLSPEmin	-50
+
+PLL_Name	clocks:clocks_inst|altpll:altpll_component|clocks_altpll:auto_generated|generic_pll1~PLL_OUTPUT_COUNTER
+PLLJITTER	NA
+PLLSPEmax	NA
+PLLSPEmin	NA
+
+PLL_Name	clocks:clocks_inst|altpll:altpll_component|clocks_altpll:auto_generated|generic_pll2~PLL_OUTPUT_COUNTER
+PLLJITTER	NA
+PLLSPEmax	NA
+PLLSPEmin	NA
+
+PLL_Name	clocks:clocks_inst|altpll:altpll_component|clocks_altpll:auto_generated|generic_pll3~PLL_OUTPUT_COUNTER
+PLLJITTER	NA
+PLLSPEmax	NA
+PLLSPEmin	NA
+
+PLL_Name	clocks:clocks_inst|altpll:altpll_component|clocks_altpll:auto_generated|generic_pll4~PLL_OUTPUT_COUNTER
+PLLJITTER	NA
+PLLSPEmax	NA
+PLLSPEmin	NA
+

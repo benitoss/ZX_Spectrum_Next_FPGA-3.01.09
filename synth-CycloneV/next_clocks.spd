@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file path="next_clocks_sim/next_clocks.vho" type="VHDL" />
+ <topLevel name="next_clocks" />
+ <deviceFamily name="cyclonev" />
+</simPackage>
