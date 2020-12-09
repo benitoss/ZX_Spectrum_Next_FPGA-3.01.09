@@ -1211,24 +1211,25 @@ begin
     
    -- Select active sram chip
    
-   process (zxn_ram_a_req, zxn_ram_b_req, sram_addr)
-   begin
-      if (zxn_ram_a_req = '1' or zxn_ram_b_req = '1') then
-		  sram_lb_n <= sram_addr(20);
-		  sram_ub_n <= not sram_addr(20);	
---        case sram_addr(20 downto 19) is
---            when "00"   =>  sram_cs_n <= '0'; -- <-----  512 KB 
---            when "01"   =>  sram_cs_n <= '0'; -- <----- 1024 Kb
---            when "10"   =>  sram_cs_n <= '0'; -- <----- 1536 Kb
---            when others =>  sram_cs_n <= '0'; -- <-----2048 Kb
---         end case; 
-        sram_cs_n <= '0';
-      else
-         sram_cs_n <= '1';  
-      end if;
+--   process (zxn_ram_a_req, zxn_ram_b_req, sram_addr)
+--   begin
+--      if (zxn_ram_a_req = '1' or zxn_ram_b_req = '1') then
+----		  sram_lb_n <= sram_addr(20);
+----		  sram_ub_n <= not sram_addr(20);	
+----        case sram_addr(20 downto 19) is
+----            when "00"   =>  sram_cs_n <= '0'; -- <-----  512 KB 
+----            when "01"   =>  sram_cs_n <= '0'; -- <----- 1024 Kb
+----            when "10"   =>  sram_cs_n <= '0'; -- <----- 1536 Kb
+----            when others =>  sram_cs_n <= '0'; -- <-----2048 Kb
+----         end case; 
+--        sram_cs_n <= '0';
+--      else
+--         sram_cs_n <= '1';  
+--      end if;
+--	
+--   end process;
+			
 	
-   end process;
-   
 	sram_data_H <= sram_addr(20);
    
 	sram_rd <= (zxn_ram_a_rd or not zxn_ram_a_req) when zxn_ram_b_req = '0' else '1';
@@ -1249,7 +1250,7 @@ begin
             sram_port_b_active <= '0';
 								
 			   sram_data_H_active <= '0';
-            
+				
 
          else
 
@@ -1257,11 +1258,7 @@ begin
             sram_oe_n_active <= not sram_rd;
             sram_addr_active <= sram_addr;
 				
---				if sram_data_H = '0' then
---				   sram_data_active <= "ZZZZZZZZ" & zxn_ram_a_do;
---				else 
---					sram_data_active <= zxn_ram_a_do & "ZZZZZZZZ";
---				end if;
+
 			 	sram_data_active <= zxn_ram_a_do & zxn_ram_a_do;
 --          sram_data_active <= zxn_ram_a_do;
         
@@ -1270,7 +1267,8 @@ begin
 				
 			   sram_data_H_active <= sram_data_H;
 				
-				
+				sram_lb_n <= sram_addr(20);
+	         sram_ub_n <= not sram_addr(20);
 
          end if;
       end if;
@@ -1281,7 +1279,7 @@ begin
    process (CLK_28)
    begin
       if rising_edge(CLK_28) then
-			sram_data_in <= ram_data_io;
+			sram_data_in <= sram_data_io ; --ram_data_io;
       end if;
    end process;
    
@@ -1296,12 +1294,8 @@ begin
    end process;
    
 --   sram_data_in_byte <= sram_data_in;
-
      sram_data_in_byte <= sram_data_in(7 downto 0) when sram_data_H_read = '0' else sram_data_in(15 downto 8);
-     
---	  sram_data_active <= "ZZZZZZZZ" & zxn_ram_a_do  when sram_data_H_read = '0' and reset ='0';  
---	  sram_data_active <= zxn_ram_a_do & "ZZZZZZZZ"  when sram_data_H_read = '1' and reset ='0';
-   --
+    
    
    process (CLK_28)
    begin
@@ -1330,7 +1324,7 @@ begin
    process (CLK_HDMI)
    begin
       if rising_edge(CLK_HDMI) then
-         if sram_oe_n_active = '1' and sram_we_line = "0000" then
+			if sram_oe_n_active = '1' and sram_we_line = "0000" then
             sram_we_line <= "1111";
             ram_we_n_o <= '0';
          else
@@ -1355,9 +1349,11 @@ begin
 	       
     -- To Work with SRAM 
 	sram_oe_n <= sram_oe_n_active;
-   sram_data_io(15 downto 0) <= sram_data_active  when ram_we_n_o = '0' and sram_cs_n_active = '0'  else (others => 'Z');
-   ram_data_io  <= sram_data_io(15 downto 0) when sram_oe_n_active = '0' and sram_cs_n_active = '0'  else (others => 'Z');
-	
+--   sram_data_io(15 downto 0) <= sram_data_active  when ram_we_n_o = '0' and sram_cs_n_active = '0'  else (others => 'Z');
+--   ram_data_io  <= sram_data_io(15 downto 0) when sram_oe_n_active = '0' and sram_cs_n_active = '0'  else (others => 'Z');
+
+	sram_data_io(15 downto 0) <= sram_data_active  when ram_we_n_o = '0' and ram_we_n_o ='0'  else (others => 'Z');
+--   ram_data_io  <= sram_data_io(15 downto 0);
 	
 	       
    ------------------------------------------------------------
