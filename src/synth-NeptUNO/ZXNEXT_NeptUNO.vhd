@@ -142,13 +142,14 @@ architecture rtl of ZXNEXT_NeptUNO is
     );
     end component;
     
-	 component joydecoder is
+	component joydecoder is
     port
     (
-         clk            : in  std_logic;
+        clk             : in  std_logic;
         joy_data        : in  std_logic;
         joy_clk         : out  std_logic;
-        joy_load_n      : out  std_logic;
+        joy_load        : out  std_logic;
+        clock_locked    : in  std_logic;		  
 
         joy1up          : out  std_logic;
         joy1down        : out  std_logic;
@@ -170,7 +171,20 @@ architecture rtl of ZXNEXT_NeptUNO is
 		  		  
     );
     end component; 
-    
+	 
+	 
+	 component joystick_sega is
+    port
+    (
+        joy0            : in std_logic_vector( 5 downto 0)	:= (others => '1');
+        joy1            : in std_logic_vector( 5 downto 0)	:= (others => '1');
+        player1         : out std_logic_vector( 10 downto 0)	:= (others => '0');
+        player2         : out std_logic_vector( 10 downto 0)	:= (others => '0');
+		  sega_clk        : in  std_logic;
+		  sega_strobe     : out  std_logic		  
+		  		  
+    );
+    end component; 	 
 	 component vga_to_greyscale is 
 	 port (
 			   r_in			: in std_logic_vector( 9 downto 0)	:= (others => '0');
@@ -1484,9 +1498,10 @@ begin
 		dac_LRCK		=> i2s_lrclk_o,
 		dac_SCLK		=> i2s_bclk_o,
 		dac_SDIN		=> i2s_data_o,
-		L_data		=> '0' & zxn_audio_L_pre & "00", --zxn_audio_L(11 downto 0) & zxn_audio_L(11 downto 8),
-		R_data		=> '0' & zxn_audio_R_pre & "00"  --zxn_audio_R(11 downto 0) & zxn_audio_R(11 downto 8)
+		L_data		=> zxn_audio_L_pre & "000", --'0' & zxn_audio_L_pre & "00",
+		R_data		=> zxn_audio_R_pre & "000"  --'0' & zxn_audio_R_pre & "00"	
 	); 
+	 
 	 
    ------------------------------------------------------------
    -- VIDEO : VGA ---------------------------------------------
@@ -2441,9 +2456,8 @@ begin
    
   -- Joysticks
   -- active high START/MODE A/X B/Y/F2 C/Z/F1 U D L R   
-	 
-	 zxn_joy_left    <=  "00000" &  (joy1fire2  & joy1fire1 & joy1up & joy1down & joy1left & joy1right);
-    zxn_joy_right   <=  "00000" &  (joy2fire2  & joy2fire1 & joy2up & joy2down & joy2left & joy2right); 
+	 --zxn_joy_left    <=  "00000" &  (joy1fire2  & joy1fire1 & joy1up & joy1down & joy1left & joy1right);
+    --zxn_joy_right   <=  "00000" &  (joy2fire2  & joy2fire1 & joy2up & joy2down & joy2left & joy2right); 
 	 
     joystick_serial : joydecoder
     port map
@@ -2451,8 +2465,9 @@ begin
         clk             => clock_50_i,
         joy_data        => joy_data_i,
         joy_clk         => joy_clock_o,
-        joy_load_n      => joy_load_o,
-
+        joy_load        => joy_load_o,
+        clock_locked    => locked,
+		  
         joy1up          => joy1up,
         joy1down        => joy1down,
         joy1left        => joy1left,
@@ -2472,5 +2487,18 @@ begin
 		  joy2start       => open
     ); 
 	 
+	 
+    joystick_mega : joystick_sega
+    port map
+    (
+        joy0 			   => (joy1fire2 & joy1fire1 & joy1up & joy1down & joy1left & joy1right),
+        joy1            => (joy2fire2 & joy2fire1 & joy2up & joy2down & joy2left & joy2right),		
+        -- fire12-1, up, down, left, right
+        player1			=> zxn_joy_left,  -- active high  X Z Y START A C B U D L R
+        player2			=> zxn_joy_right,	-- active high  X Z Y START A C B U D L R			  		  
+        -- sega joystick
+        sega_clk  		=> zxn_rgb_hs_n,
+        sega_strobe		=> joy_p7_o
+    ); 
 
 end architecture;
