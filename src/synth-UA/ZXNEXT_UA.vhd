@@ -5,7 +5,8 @@
 -- TBBLUE Issue 2 Top - Fabio Belavenuto
 -- ZXNext Refactor - Alvin Albrecht
 -- Ported to ZXDOS by AvlixA, joystick implementation by Fernando Mosquera
--- Ported to Altera FPGAs (UnAmiga, Cyclone V, UnAmiga Reloaded, NeptUNO) by Fernando Mosquera (benitoss)
+-- Ported to Altera FPGAs (UnAmiga, Cyclone V, Mister, UnAmiga Reloaded, NeptUNO) by Fernando Mosquera (benitoss)
+-- Ported to Multicore 2 Plus by Fernando Mosquera (benitoss)
 --
 -- This file is part of the ZX Spectrum Next Project
 -- <https://gitlab.com/SpectrumNext/ZX_Spectrum_Next_FPGA/tree/master/cores>
@@ -32,30 +33,49 @@ use ieee.std_logic_unsigned.all;
 library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity ZXNEXT_NeptUNO is
+entity ZXNEXT_UA is
    generic (
       g_machine_id      : unsigned(7 downto 0)  := X"AA";   -- AA = Unamiga   -- EA = ZXDOS
       g_version         : unsigned(7 downto 0)  := X"31";   -- 3.01
-      g_sub_version     : unsigned(7 downto 0)  := X"09"    -- .09		
+      g_sub_version     : unsigned(7 downto 0)  := X"09"    -- .09
    );
    port (
          -- Clocks
         clock_50_i         : in    std_logic;
 
         -- Buttons
-        btn_divmmc_n_i    : in    std_logic;
-        btn_multiface_n_i : in    std_logic;
-        btn_reset_n_i     : in    std_logic;
+--        btn_divmmc_n_i    : in    std_logic;
+--        btn_multiface_n_i : in    std_logic;
+--        btn_reset_n_i     : in    std_logic;
+		  
+			  
+																 
 
         -- SRAM
         sram_addr_o        : out   std_logic_vector(20 downto 0)   := (others => '0');
-        sram_data_io       : inout std_logic_vector(15 downto 0)    := (others => 'Z');
-		  sram_we_n_o        : out   std_logic                               := '1';
---        sram_oe_n_o        : out   std_logic                               := '1';
-		  sram_ub_n          : out   std_logic                               := '0';
-        sram_lb_n          : out   std_logic                               := '0';
-        sram_oe_n          : out   std_logic                               := '0';
+        sram_data_io       : inout std_logic_vector(7 downto 0)    := (others => 'Z');
+        sram_we_n_o        : out   std_logic                               := '1';
+		  
+--      sram_oe_n_o        : out   std_logic                               := '1';
+--		  sram_ub_n          : out   std_logic                               := '1';
+--      sram_lb_n          : out   std_logic                               := '0';
+        
           
+			-- SDRAM
+        SDRAM_A            : out std_logic_vector(12 downto 0);
+        SDRAM_DQ           : inout std_logic_vector(15 downto 0);
+
+        SDRAM_BA           : out std_logic_vector(1 downto 0);
+        SDRAM_DQMH         : out std_logic;
+        SDRAM_DQML         : out std_logic;    
+
+        SDRAM_nRAS         : out std_logic;
+        SDRAM_nCAS         : out std_logic;
+        SDRAM_CKE          : out std_logic;
+        SDRAM_CLK          : out std_logic;
+        SDRAM_nCS          : out std_logic;
+        SDRAM_nWE          : out std_logic; 
+		  
         -- PS2
         ps2_clk_io         : inout std_logic                        := 'Z';
         ps2_data_io        : inout std_logic                        := 'Z';
@@ -68,25 +88,36 @@ entity ZXNEXT_NeptUNO is
         sd_mosi_o          : out   std_logic                        := 'Z';
         sd_miso_i          : in    std_logic;
 
+
         -- Joysticks
-        joy_clock_o        : out   std_logic;
-        joy_load_o         : out   std_logic;
-        joy_data_i         : in    std_logic;
-        joy_p7_o           : out   std_logic                        := '1'; 
+        joy1up           : in    std_logic;
+        joy1down         : in    std_logic;
+        joy1left         : in    std_logic;
+        joy1right        : in    std_logic;
+        joy1fire1        : in    std_logic;
+        joy1fire2        : in    std_logic;
+        joy2up           : in    std_logic;
+        joy2down         : in    std_logic;
+        joy2left         : in    std_logic;
+        joy2right        : in    std_logic;
+        joy2fire1        : in    std_logic;
+        joy2fire2        : in    std_logic;	
+        joy_p7_o         : out   std_logic                        := '1';		
  
         -- Audio
         AUDIO_L             : out   std_logic                       := '0';
         AUDIO_R             : out   std_logic                       := '0';
         ear_i               : in    std_logic;
-		  
+--		  mic_o               : out   std_logic                       := '0';
+ 
 		  
 --		  audioint_o          : out   std_logic                      := '0'; 
 --        mic_o               : out   std_logic                       := '0';
 
---        i2s_mclk_o				: out   std_logic									:= 'Z';
-		  i2s_bclk_o				: out   std_logic									:= '0';
-		  i2s_lrclk_o				: out   std_logic									:= '0';
-		  i2s_data_o				: out   std_logic									:= '0';
+        i2s_mclk_o				: out   std_logic									:= 'Z';
+        i2s_bclk_o				: out   std_logic									:= '0';
+        i2s_lrclk_o				: out   std_logic									:= '0';
+        i2s_data_o				: out   std_logic									:= '0';
 
         -- VGA
         VGA_R               : out   std_logic_vector(5 downto 0)    := (others => '0');
@@ -101,31 +132,31 @@ entity ZXNEXT_NeptUNO is
 
 		  
 		 -- I2C (RTC and HDMI)
-        i2c_scl_io        : inout std_logic                      := 'Z';
-        i2c_sda_io        : inout std_logic                      := 'Z';
+--        i2c_scl_io        : inout std_logic                      := 'Z';
+--        i2c_sda_io        : inout std_logic                      := 'Z';
 
       -- ESP
-        esp_gpio0_io      : inout std_logic                      := 'Z';
+--        esp_gpio0_io      : inout std_logic                      := 'Z';
 --      esp_gpio2_io      : inout std_logic                      := 'Z';
-        esp_rx_i          : in    std_logic;
-        esp_tx_o          : out   std_logic                      := '1'; 
+--        esp_rx_i          : in    std_logic;
+--        esp_tx_o          : out   std_logic                      := '1'; 
 		  
         --STM32
---        stm_rx_o            : out std_logic     := 'Z'; -- stm RX pin, so, is OUT on the slave
---        stm_tx_i            : in  std_logic     := 'Z'; -- stm TX pin, so, is IN on the slave
-          stm_rst_o           : out std_logic     := '0'  -- '0' to hold the microcontroller reset line, to free the SD card
+        stm_rx_o            : out std_logic     := 'Z'; -- stm RX pin, so, is OUT on the slave
+        stm_tx_i            : in  std_logic     := 'Z'; -- stm TX pin, so, is IN on the slave
+        stm_rst_o           : out std_logic     := '0';  -- '0' to hold the microcontroller reset line, to free the SD card
         
---        SPI_SCK             : inout std_logic   := 'Z';
---        SPI_DO              : inout std_logic   := 'Z';
---        SPI_DI              : inout std_logic   := 'Z';
---        SPI_SS2             : inout std_logic   := 'Z';
+        SPI_SCK             : inout std_logic   := 'Z';
+        SPI_DO              : inout std_logic   := 'Z';
+        SPI_DI              : inout std_logic   := 'Z';
+        SPI_SS2             : inout std_logic   := 'Z'
 --        SPI_nWAIT           : out   std_logic   := '1';
 
 --        GPIO                : inout std_logic_vector(31 downto 0)   := (others => 'Z')
    );
 end entity;
 
-architecture rtl of ZXNEXT_NeptUNO is
+architecture rtl of ZXNEXT_UA is
 
     
      component clocks 
@@ -141,38 +172,7 @@ architecture rtl of ZXNEXT_NeptUNO is
 		  locked  : out std_logic         -- outclk4.clk
     );
     end component;
-    
-	component joydecoder is
-    port
-    (
-        clk             : in  std_logic;
-        joy_data        : in  std_logic;
-        joy_clk         : out  std_logic;
-        joy_load        : out  std_logic;
-        clock_locked    : in  std_logic;		  
-
-        joy1up          : out  std_logic;
-        joy1down        : out  std_logic;
-        joy1left        : out  std_logic;
-        joy1right       : out  std_logic;
-        joy1fire1       : out  std_logic;
-        joy1fire2       : out  std_logic;
-		  joy1fire3       : out  std_logic;
-		  joy1start       : out  std_logic;
-		  
-        joy2up          : out  std_logic;
-        joy2down        : out  std_logic;
-        joy2left        : out  std_logic;
-        joy2right       : out  std_logic;
-        joy2fire1       : out  std_logic;
-        joy2fire2       : out  std_logic;
-		  joy2fire3       : out  std_logic;
-		  joy2start       : out  std_logic
-		  		  
-    );
-    end component; 
-	 
-	 
+		 
 	 component joystick_sega is
     port
     (
@@ -180,33 +180,33 @@ architecture rtl of ZXNEXT_NeptUNO is
         joy1            : in std_logic_vector( 5 downto 0)	:= (others => '1');
         player1         : out std_logic_vector( 10 downto 0)	:= (others => '0');
         player2         : out std_logic_vector( 10 downto 0)	:= (others => '0');
+
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
 		  sega_clk        : in  std_logic;
 		  sega_strobe     : out  std_logic		  
 		  		  
     );
-    end component; 	 
-	 component vga_to_greyscale is 
+    end component;	 
+	 
+
+    component vga_to_greyscale is 
 	 port (
 			   r_in			: in std_logic_vector( 9 downto 0)	:= (others => '0');
 				g_in			: in std_logic_vector( 9 downto 0)	:= (others => '0');
 				b_in			: in std_logic_vector( 9 downto 0)	:= (others => '0');
 				y_out			: out std_logic_vector( 9 downto 0)	:= (others => '1')
 	 );
-	 end component;
-	
---	component audio_top
---   port
---   (
---		      clk_50MHz : in STD_LOGIC; -- system clock (50 MHz)
---				dac_MCLK : out STD_LOGIC; -- outputs to PMODI2L DAC
---				dac_LRCK : out STD_LOGIC;
---				dac_SCLK : out STD_LOGIC;
---				dac_SDIN : out STD_LOGIC;
---				L_data : 	in std_logic_vector(15 downto 0);  	-- LEFT data (15-bit signed)
---				R_data : 	in std_logic_vector(15 downto 0)  	-- RIGHT data (15-bit signed) 	
---   );
---    end component;
-	
+	 end component;   
+    
    component ps2_mouse
    port
    (
@@ -373,24 +373,33 @@ architecture rtl of ZXNEXT_NeptUNO is
    signal sram_port_b_req        : std_logic;
    signal zxn_ram_b_req          : std_logic;
    signal sram_addr              : std_logic_vector(20 downto 0);
+
    signal sram_cs_n              : std_logic;
+	-- 
    signal sram_data_H            : std_logic;
    signal sram_rd                : std_logic;
    
+
    signal sram_cs_n_active       : std_logic;
+	 
    signal sram_oe_n_active       : std_logic                      := '0';
+
    signal sram_addr_active       : std_logic_vector(20 downto 0)  := (others => '0');
-   signal sram_data_active       : std_logic_vector(15 downto 0)  := (others => '0');
+
+   signal sram_data_active       : std_logic_vector(7 downto 0)  := (others => '0');
+   --   
    signal sram_port_a_active     : std_logic                      := '0';
    signal sram_port_b_active     : std_logic                      := '0';
    signal sram_data_H_active     : std_logic                      := '0';
-   
-   signal sram_data_in           : std_logic_vector(15 downto 0);
+
+																   
+   signal sram_data_in           : std_logic_vector(7 downto 0);
+	--	
    signal sram_port_a_read       : std_logic;
    signal sram_port_b_read       : std_logic;
    signal sram_data_H_read       : std_logic;
    signal sram_data_in_byte      : std_logic_vector(7 downto 0);
-   
+   	
    signal sram_port_a_dat        : std_logic_vector(7 downto 0);
    signal sram_port_b_dat        : std_logic_vector(7 downto 0);
    signal sram_port_a_do         : std_logic_vector(7 downto 0);
@@ -401,7 +410,9 @@ architecture rtl of ZXNEXT_NeptUNO is
     
    --zxdos signal adaptation:
    
-   signal ram_data_io            : std_logic_vector(15 downto 0)  := (others => 'Z');
+
+   signal ram_data_io            : std_logic_vector(7 downto 0)  := (others => 'Z');
+
    signal ram_oe_n_o             : std_logic                      := '1';
    signal ram_ce_n_o             : std_logic;
    signal ram_we_n_o             : std_logic                      := '1';
@@ -560,7 +571,9 @@ architecture rtl of ZXNEXT_NeptUNO is
    
    --zxdos adaptation
    signal sd_cs1_n_o        : std_logic                      := '1';
-   --signal btn_reset_n_i     : std_logic;
+   signal btn_reset_n_i     : std_logic;
+	signal btn_divmmc_n_i    : std_logic;
+	signal btn_multiface_n_i : std_logic;
     
    -- zxdos spi flash adaptation
    -- Flash disconected to avoid ZXDOS core updates from ZXNEXT
@@ -708,41 +721,22 @@ architecture rtl of ZXNEXT_NeptUNO is
    signal    hdmi_n_o          : std_logic_vector(3 downto 0);
 
       -- I2C (RTC and HDMI)
---   signal    i2c_scl_io        : std_logic                      := 'Z';
---   signal    i2c_sda_io        : std_logic                      := 'Z';
+   signal    i2c_scl_io        : std_logic                      := 'Z';
+   signal    i2c_sda_io        : std_logic                      := 'Z';
 
       -- ESP
---   signal    esp_gpio0_io      : std_logic                      := 'Z';
+   signal    esp_gpio0_io      : std_logic                      := 'Z';
    signal    esp_gpio2_io      : std_logic                      := 'Z';
---   signal    esp_rx_i          : std_logic;
---   signal    esp_tx_o          : std_logic                      := '1';
+   signal    esp_rx_i          : std_logic;
+   signal    esp_tx_o          : std_logic                      := '1';
 
       -- PI GPIO
    signal    accel_io          : std_logic_vector(27 downto 0)  := (others => 'Z');
 
       -- Vacant pins
    signal    extras_io         : std_logic := 'Z';
-
-   signal   joy1up,
-            joy1down,
-            joy1left,
-            joy1right,
-            joy1fire1,
-            joy1fire2,
-
-            joy2up,
-            joy2down,
-            joy2left,
-            joy2right,
-            joy2fire1,
-            joy2fire2       : std_logic;
-
+				  			
 begin
-
-  -- NeptUNO Memory configuration
---    sram_ub_n <= '1';
---    sram_lb_n <= '0';
---    sram_oe_n <= '0';
 
     extras_io <= 'Z';
     
@@ -1225,28 +1219,30 @@ begin
     
    -- Select active sram chip
    
---   process (zxn_ram_a_req, zxn_ram_b_req, sram_addr)
---   begin
---      if (zxn_ram_a_req = '1' or zxn_ram_b_req = '1') then
-----		  sram_lb_n <= sram_addr(20);
-----		  sram_ub_n <= not sram_addr(20);	
-----        case sram_addr(20 downto 19) is
-----            when "00"   =>  sram_cs_n <= '0'; -- <-----  512 KB 
-----            when "01"   =>  sram_cs_n <= '0'; -- <----- 1024 Kb
-----            when "10"   =>  sram_cs_n <= '0'; -- <----- 1536 Kb
-----            when others =>  sram_cs_n <= '0'; -- <-----2048 Kb
-----         end case; 
---        sram_cs_n <= '0';
---      else
---         sram_cs_n <= '1';  
---      end if;
---	
---   end process;
-			
-	
-	sram_data_H <= sram_addr(20);
+   process (zxn_ram_a_req, zxn_ram_b_req, sram_addr)
+   begin
+      if (zxn_ram_a_req = '1' or zxn_ram_b_req = '1') then
+		   
+		  
+        case sram_addr(20 downto 19) is
+            when "00"   =>  sram_cs_n <= '0';    -- <-----  512 KB 
+            when "01"   =>  sram_cs_n <= '0';    -- <----- 1024 Kb
+            when "10"   =>  sram_cs_n <= '0';    -- <----- 1536 Kb
+            when others =>  sram_cs_n <= '0';    -- <-----2048 Kb
+         end case; 
+--          sram_cs_n <= '0';
+      else
+         sram_cs_n <= '1';          
+      end if;
    
-	sram_rd <= (zxn_ram_a_rd or not zxn_ram_a_req) when zxn_ram_b_req = '0' else '1';
+   end process;
+   
+	
+
+   
+   
+   
+   sram_rd <= (zxn_ram_a_rd or not zxn_ram_a_req) when zxn_ram_b_req = '0' else '1';
    
    -- Memory cycle
    
@@ -1256,33 +1252,36 @@ begin
          if reset = '1' then
          
             sram_cs_n_active <= '1';
+
             sram_oe_n_active <= '0';
             sram_addr_active <= (others => '0');
             sram_data_active <= (others => '0');
+
         
             sram_port_a_active <= '0';
             sram_port_b_active <= '0';
-								
-			   sram_data_H_active <= '0';
-				
+            
+									   
+ 
 
          else
 
             sram_cs_n_active <= sram_cs_n;
             sram_oe_n_active <= not sram_rd;
+			
             sram_addr_active <= sram_addr;
-				
 
-			 	sram_data_active <= zxn_ram_a_do & zxn_ram_a_do;
---          sram_data_active <= zxn_ram_a_do;
+            sram_data_active <= zxn_ram_a_do;
+									  
+	 
         
             sram_port_a_active <= zxn_ram_a_req;
             sram_port_b_active <= zxn_ram_b_req;
-				
-			   sram_data_H_active <= sram_data_H;
-				
-				sram_lb_n <= sram_addr(20);
-	         sram_ub_n <= not sram_addr(20);
+           
+											  
+ 
+		  
+		   
 
          end if;
       end if;
@@ -1293,7 +1292,7 @@ begin
    process (CLK_28)
    begin
       if rising_edge(CLK_28) then
-			sram_data_in <= sram_data_io ; --ram_data_io;
+         sram_data_in <= ram_data_io;
       end if;
    end process;
    
@@ -1301,15 +1300,15 @@ begin
    begin
       if rising_edge(CLK_28) then
          sram_port_a_read <= sram_port_a_active and not sram_oe_n_active;
-         sram_port_b_read <= sram_port_b_active and not sram_oe_n_active; 
-         sram_data_H_read <= sram_data_H_active;
-        	
+         sram_port_b_read <= sram_port_b_active and not sram_oe_n_active;         
+													
+   
       end if;
    end process;
+ 
+   sram_data_in_byte <= sram_data_in;
    
---   sram_data_in_byte <= sram_data_in;
-     sram_data_in_byte <= sram_data_in(7 downto 0) when sram_data_H_read = '0' else sram_data_in(15 downto 8);
-    
+   --
    
    process (CLK_28)
    begin
@@ -1338,7 +1337,7 @@ begin
    process (CLK_HDMI)
    begin
       if rising_edge(CLK_HDMI) then
-			if sram_oe_n_active = '1' and sram_we_line = "0000" then
+         if sram_oe_n_active = '1' and sram_we_line = "0000" then
             sram_we_line <= "1111";
             ram_we_n_o <= '0';
          else
@@ -1352,24 +1351,27 @@ begin
       end if;
    end process;
 
-   sram_addr_o(19 downto 0) <=  sram_addr_active(19 downto 0); 
-  	sram_we_n_o <= ram_we_n_o;
+-- 
    
-	
+   sram_addr_o <= sram_addr_active(20 downto 0);  -- <------------------------- here you define  2 MB--------------
+ 
+   sram_we_n_o <= ram_we_n_o;
 
-   zxn_ram_a_di <= sram_port_a_do;
-   zxn_ram_b_di <= sram_port_b_do;
+								
 
-	       
-    -- To Work with SRAM 
-	sram_oe_n <= sram_oe_n_active;
---   sram_data_io(15 downto 0) <= sram_data_active  when ram_we_n_o = '0' and sram_cs_n_active = '0'  else (others => 'Z');
---   ram_data_io  <= sram_data_io(15 downto 0) when sram_oe_n_active = '0' and sram_cs_n_active = '0'  else (others => 'Z');
+    zxn_ram_a_di <= sram_port_a_do;
+    zxn_ram_b_di <= sram_port_b_do;
 
-	sram_data_io(15 downto 0) <= sram_data_active  when ram_we_n_o = '0' and ram_we_n_o ='0'  else (others => 'Z');
---   ram_data_io  <= sram_data_io(15 downto 0);
-	
-	       
+       
+    -- To Work with SRAM    
+											
+   sram_data_io <= sram_data_active when ram_we_n_o = '0' and sram_cs_n_active = '0'  else (others => 'Z');
+   ram_data_io   <= sram_data_io when sram_oe_n_active = '0' and sram_cs_n_active = '0'  else (others => 'Z');
+        
+	   
+		  
+
+		
    ------------------------------------------------------------
    -- AUDIO ---------------------------------------------------
    ------------------------------------------------------------
@@ -1467,29 +1469,7 @@ begin
 --      dac_i    => '0' & zxn_audio_M & '0',
 --      dac_o    => audioext_m
 --   );
-
-    
-    -- I2S out
---   i2s : entity work.i2s_transmitter
---	generic map (
---		mclk_rate		=> 25000000, 
---		sample_rate		=> 48288,
---		preamble			=> 0,
---		word_length		=> 16
---	)
---	port map (
---		clock_i			=> clock_50_i, --50.000 MHz (2xMCLK)
---		reset_i			=> reset,
---		-- Parallel input
---		pcm_l_i			=> std_logic_vector( zxn_audio_L(11 downto 0) & zxn_audio_L(11 downto 8) ), 
---		pcm_r_i			=> std_logic_vector( zxn_audio_R(11 downto 0) & zxn_audio_R(11 downto 8) ), 
---		i2s_mclk_o		=> i2s_mclk_o,
---		i2s_lrclk_o		=> i2s_lrclk_o,
---		i2s_bclk_o		=> i2s_bclk_o,
---		i2s_d_o			=> i2s_data_o
---	);
-    
-	
+ 
 	-- Instacia I2S audio
 	i2s : entity work.audio_top 
 	port map (
@@ -1500,9 +1480,9 @@ begin
 		dac_SDIN		=> i2s_data_o,
 		L_data		=> zxn_audio_L_pre & "000", --'0' & zxn_audio_L_pre & "00",
 		R_data		=> zxn_audio_R_pre & "000"  --'0' & zxn_audio_R_pre & "00"	
-	); 
-	 
-	 
+	); 	
+		    
+  
    ------------------------------------------------------------
    -- VIDEO : VGA ---------------------------------------------
    ------------------------------------------------------------
@@ -2454,44 +2434,18 @@ begin
    zxn_audio_L <= (others => '1') when zxn_audio_L_pre(12) = '1' else zxn_audio_L_pre(11 downto 0);
    zxn_audio_R <= (others => '1') when zxn_audio_R_pre(12) = '1' else zxn_audio_R_pre(11 downto 0);
    
-  -- Joysticks
-  -- active high START/MODE A/X B/Y/F2 C/Z/F1 U D L R   
-	 --zxn_joy_left    <=  "00000" &  (joy1fire2  & joy1fire1 & joy1up & joy1down & joy1left & joy1right);
-    --zxn_joy_right   <=  "00000" &  (joy2fire2  & joy2fire1 & joy2up & joy2down & joy2left & joy2right); 
-	 
-    joystick_serial : joydecoder
-    port map
-    (
-        clk             => clock_50_i,
-        joy_data        => joy_data_i,
-        joy_clk         => joy_clock_o,
-        joy_load        => joy_load_o,
-        clock_locked    => locked,
-		  
-        joy1up          => joy1up,
-        joy1down        => joy1down,
-        joy1left        => joy1left,
-        joy1right       => joy1right,
-        joy1fire1       => joy1fire1,
-        joy1fire2       => joy1fire2,
-		  joy1fire3       => open,
-		  joy1start       => open,
-		  
-        joy2up          => joy2up,
-        joy2down        => joy2down,
-        joy2left        => joy2left,
-        joy2right       => joy2right,
-        joy2fire1       => joy2fire1,
-        joy2fire2       => joy2fire2,
-		  joy2fire3       => open,
-		  joy2start       => open
-    ); 
-	 
-	 
-    joystick_mega : joystick_sega
-    port map
-    (
-        joy0 			   => (joy1fire2 & joy1fire1 & joy1up & joy1down & joy1left & joy1right),
+   -- Joysticks
+   -- active high START/MODE A/X B/Y/F2 C/Z/F1 U D L R   
+																									   
+ 
+   --zxn_joy_left   <=  "00000" & not (joy1fire2  & joy1fire1 & joy1up & joy1down & joy1left & joy1right);
+   --zxn_joy_right  <=  "00000" & not (joy2fire2  & joy2fire1 & joy2up & joy2down & joy2left & joy2right); 
+									   
+  
+   joystick_mega : joystick_sega
+   port map
+   (
+        joy0 			=> (joy1fire2 & joy1fire1 & joy1up & joy1down & joy1left & joy1right),
         joy1            => (joy2fire2 & joy2fire1 & joy2up & joy2down & joy2left & joy2right),		
         -- fire12-1, up, down, left, right
         player1			=> zxn_joy_left,  -- active high  X Z Y START A C B U D L R
@@ -2499,6 +2453,10 @@ begin
         -- sega joystick
         sega_clk  		=> zxn_rgb_hs_n,
         sega_strobe		=> joy_p7_o
-    ); 
+										 
+																
+   ); 	 
+
+	 
 
 end architecture;

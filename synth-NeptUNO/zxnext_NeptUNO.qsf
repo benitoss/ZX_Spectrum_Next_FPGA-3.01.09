@@ -42,7 +42,7 @@ set_global_assignment -name DEVICE EP4CE55F23C8
 set_global_assignment -name TOP_LEVEL_ENTITY ZXNEXT_NeptUNO
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.1.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "23:24:14  AUGUST 11, 2019"
-set_global_assignment -name LAST_QUARTUS_VERSION "17.0.0 Lite Edition"
+set_global_assignment -name LAST_QUARTUS_VERSION "17.0.2 Lite Edition"
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 256
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
@@ -200,10 +200,11 @@ set_location_assignment PIN_L22 -to sram_data_io[11]
 set_location_assignment PIN_H22 -to sram_data_io[10]
 set_location_assignment PIN_H21 -to sram_data_io[9]
 set_location_assignment PIN_F22 -to sram_data_io[8]
+set_global_assignment -name VHDL_FILE ../src/joysticks/joystick_sega_np1.vhd
+set_global_assignment -name VERILOG_FILE ../src/joysticks/joydecoder_np1.v
 set_global_assignment -name SDC_FILE zxnext_NeptUNO.sdc
 set_global_assignment -name VHDL_FILE ../src/audio/dac_if.vhd
 set_global_assignment -name VHDL_FILE ../src/audio/audio_top.vhd
-set_global_assignment -name VERILOG_FILE ../src/joysticks/joydecoder_neptuno.v
 set_global_assignment -name VERILOG_FILE "../src/synth-NeptUNO/video/vga_to_greyscale.v"
 set_global_assignment -name VHDL_FILE ../src/device/ctc_chan.vhd
 set_global_assignment -name VHDL_FILE ../src/device/ctc.vhd
