@@ -2,7 +2,7 @@
 
 01/04/22 DECA port by Shaeon and Somhic from Unamiga Reloaded core https://github.com/benitoss/ZX_Spectrum_Next_FPGA-3.01.09 by  @benitoss
 
-**THIS PORT REQUIRES A DUAL SDRAM+SRAM MODULE WITH SEPARATED DQMH/L SIGNALS** (3 pins old MiSTer dual memory modules should work)
+**THIS PORT ONLY USES SRAM MEMORY. IT WORKS WELL WITH A DUAL SDRAM+SRAM MISTER MODULE WITH SEPARATED DQMH/L SIGNALS (3 extra pins)**. 
 
 **Now compatible with [Deca Retro Cape 2](https://github.com/somhi/DECA_retro_cape_2)** (new location for 3 pins of old SDRAM modules). Otherwise see pinout below to connect everything through GPIOs.
 
